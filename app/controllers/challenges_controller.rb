@@ -1,9 +1,10 @@
 class ChallengesController < ApplicationController
   before_action :set_challenge, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /challenges or /challenges.json
   def index
-    @challenges = Challenge.all
+    @challenges = Challenge.where(creator: current_user)
   end
 
   # GET /challenges/1 or /challenges/1.json
@@ -22,6 +23,7 @@ class ChallengesController < ApplicationController
   # POST /challenges or /challenges.json
   def create
     @challenge = Challenge.new(challenge_params)
+    @challenge.creator = current_user
 
     respond_to do |format|
       if @challenge.save
@@ -65,6 +67,6 @@ class ChallengesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def challenge_params
-      params.require(:challenge).permit(:start_date, :end_date, :name, :description)
+      params.require(:challenge).permit(:start_date, :end_date, :name, :description, creator: current_user)
     end
 end
