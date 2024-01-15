@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :challenges
+  has_many :challenge_participations, dependent: :destroy
+  has_many :participations, class_name: "Challenge", through: :challenge_participations
 end

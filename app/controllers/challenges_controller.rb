@@ -4,7 +4,7 @@ class ChallengesController < ApplicationController
 
   # GET /challenges or /challenges.json
   def index
-    @challenges = Challenge.where(creator: current_user)
+    @challenges = Challenge.left_joins(:participants).where(creator: current_user).or(Challenge.left_joins(:participants).where(participants: {id: current_user}))
   end
 
   # GET /challenges/1 or /challenges/1.json
