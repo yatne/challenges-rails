@@ -106,7 +106,7 @@ Devise.setup do |config|
   # config.clean_up_csrf_token_on_authentication = true
 
   # When false, Devise will not attempt to reload routes on eager load.
-  # This can reduce the time taken to boot the app but if your application
+  # This can reduce the time taken to boot the application but if your application
   # requires the Devise mappings to be loaded during boot time the application
   # won't boot properly.
   # config.reload_routes = true
@@ -275,7 +275,7 @@ Devise.setup do |config|
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
-  # change the failure app, you can configure them inside the config.warden block.
+  # change the failure application, you can configure them inside the config.warden block.
   #
   # config.warden do |manager|
   #   manager.intercept_401 = false

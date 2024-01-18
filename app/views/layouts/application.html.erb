@@ -10,23 +10,18 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body>
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
-    <p class="navbar-text float-right">
-      <% if user_signed_in? %>
-        Logged in as <strong><%= current_user.email %></strong>.
-        <%= link_to "Edit profile", edit_user_registration_path, class: "navbar-link" %> |
-        <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "navbar-link"  %>
-      <% else %>
-        <%= link_to "Sign up", new_user_registration_path, class: "navbar-link"  %> |
-        <%= link_to "Login", new_user_session_path, class: "navbar-link"  %>
+  <body class="bg-gray-100">
+    <div class="flex flex-col justify-center items-center">
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
       <% end %>
-    </p>
-    <%= yield %>
+      <% if alert %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
+      <%= render "layouts/navbar/navbar" %>
+      <main class="flex flex-col max-w-screen-2xl bg-gray-50 w-full h-screen pt-16">
+        <%= yield %>
+      </main>
+    </div>
   </body>
 </html>

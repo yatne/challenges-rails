@@ -4,7 +4,7 @@
 ARG RUBY_VERSION=3.1.2
 FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
 
-# Rails app lives here
+# Rails application lives here
 WORKDIR /rails
 
 # Set production environment
@@ -50,7 +50,7 @@ RUN bundle exec bootsnap precompile app/ lib/
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 
-# Final stage for app image
+# Final stage for application image
 FROM base
 
 # Install packages needed for deployment

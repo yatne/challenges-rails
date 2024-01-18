@@ -1,0 +1,17 @@
+<div class="w-full border-2 border-grey-200 rounded max-w-2xl self-center mt-20 p-8 bg-white flex-col items-center">
+  <h2 class="text-center text-bold mb-8 text-xl font-bold">Sign up</h2>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: 'flex flex-col items-center'}) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'Email', class: 'block w-3/4 mb-2 px-2 py-1 border-2 rounded hover:border-yellow-200 focus:outline-yellow-200 focus:bg-yellow-50' %>
+    <%= f.password_field :password, autocomplete: "new-password", placeholder: 'Password', class: 'block w-3/4 mb-2 px-2 py-1 border-2 rounded hover:border-yellow-200 focus:outline-yellow-200 focus:bg-yellow-50' %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: 'Password Confirmation', class: 'block w-3/4 mb-8 px-2 py-1 border-2 rounded hover:border-yellow-200 focus:outline-yellow-200 focus:bg-yellow-50' %>
+
+    <div class="flex justify-between flex-row w-3/4 items-baseline">
+      <%= f.submit "Sign up", class: 'px-2 py-1 border-2 rounded-md bg-yellow-200 hover:bg-yellow-400 focus:bg-yellow-400 active:bg-yellow-100 border-yellow-400 hover:border-yellow-200 focus:border-yellow-200 cursor-pointer w-40' %>
+      <%= link_to "Log in", new_session_path(resource_name) %>
+    </div>
+  <% end %>
+
+</div>
