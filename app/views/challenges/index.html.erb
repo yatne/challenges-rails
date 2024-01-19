@@ -1,77 +1,17 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>My Challenges</h1>
-
-<div id="challenges">
-  <table class="border-2 m-4">
-    <thead>
-      <td class="border-2 p-2">id</td>
-      <td class="border-2 p-2">name</td>
-      <td class="border-2 p-2">from</td>
-      <td class="border-2 p-2">to</td>
-      <td class="border-2 p-2">description</td>
-    </thead>
-    <tbody class="border-2">
-      <% @challenges.each do |challenge| %>
-        <% if challenge.creator == current_user %>
-          <tr>
-            <td class="border-2 p-2">
-              <%= challenge.id %>
-            </td>
-            <td class="border-2 p-2">
-              <%= link_to challenge.name, challenge %>
-            </td>
-            <td class="border-2 p-2">
-              <%= challenge.start_date %>
-            </td>
-            <td class="border-2 p-2">
-              <%= challenge.end_date %>
-            </td>
-            <td class="border-2 p-2">
-              <%= challenge.description %>
-            </td>
-          </tr>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
+<div class="w-full border-2 border-grey-200 rounded max-w-4xl self-center mt-20 p-8 bg-white flex-col items-center">
+  <h2 class="text-center text-bold mb-8 text-xl font-bold">Created Challenges</h2>
+  <% if @challenges.select {|challenge| challenge.creator == current_user}.length > 0 %>
+    <%= render "challenge_table", challenges: @challenges.select {|challenge| challenge.creator == current_user} %>
+  <% end %>
+  <%= link_to "Create challenge", new_challenge_path, class: 'px-2 py-1 border-2 rounded-md bg-yellow-200 hover:bg-yellow-400 focus:bg-yellow-400 active:bg-yellow-100 border-yellow-400 hover:border-yellow-200 focus:border-yellow-200 cursor-pointer w-40' %>
 </div>
 
-<h1>Participation Challenges</h1>
 
-<div id="participation">
-  <table class="border-2 m-4">
-    <thead>
-    <td class="border-2 p-2">id</td>
-    <td class="border-2 p-2">name</td>
-    <td class="border-2 p-2">from</td>
-    <td class="border-2 p-2">to</td>
-    <td class="border-2 p-2">description</td>
-    </thead>
-    <tbody class="border-2">
-    <% @challenges.each do |challenge| %>
-      <% if challenge.creator != current_user %>
-        <tr>
-          <td class="border-2 p-2">
-            <%= challenge.id %>
-          </td>
-          <td class="border-2 p-2">
-            <%= link_to challenge.name, challenge %>
-          </td>
-          <td class="border-2 p-2">
-            <%= challenge.start_date %>
-          </td>
-          <td class="border-2 p-2">
-            <%= challenge.end_date %>
-          </td>
-          <td class="border-2 p-2">
-            <%= challenge.description %>
-          </td>
-        </tr>
-      <% end %>
-    <% end %>
-    </tbody>
-  </table>
-</div>
-
-<%= link_to "New challenge", new_challenge_path %>
+<% if @challenges.select {|challenge| challenge.creator != current_user}.length > 0 %>
+  <div class="w-full border-2 border-grey-200 rounded max-w-4xl self-center mt-20 p-8 bg-white flex-col items-center">
+    <h2 class="text-center text-bold mb-8 text-xl font-bold">Participation Challenges</h2>
+    <%= render "challenge_table", challenges: @challenges.select {|challenge| challenge.creator != current_user} %>
+  </div>
+<%end %>

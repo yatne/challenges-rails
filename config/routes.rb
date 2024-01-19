@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get "/", to: "main#index"
+  root to: "main#index"
   resources :mains
   resources :challenges
   devise_for :users
