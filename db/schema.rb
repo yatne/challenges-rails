@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_15_113951) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_19_124441) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,7 +31,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_15_113951) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "creator_id"
+    t.string "invite_token"
+    t.boolean "is_solo"
+    t.decimal "goal"
     t.index ["creator_id"], name: "index_challenges_on_creator_id"
+    t.index ["invite_token"], name: "index_challenges_on_invite_token", unique: true
   end
 
   create_table "users", force: :cascade do |t|

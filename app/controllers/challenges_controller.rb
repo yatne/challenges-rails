@@ -22,8 +22,9 @@ class ChallengesController < ApplicationController
 
   # POST /challenges or /challenges.json
   def create
-    @challenge = Challenge.new(challenge_params)
+    @challenge = Challenge.new
     @challenge.creator = current_user
+    @challenge.invite_token = SecureRandom.urlsafe_base64
 
     respond_to do |format|
       if @challenge.save
@@ -67,6 +68,6 @@ class ChallengesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def challenge_params
-      params.require(:challenge).permit(:start_date, :end_date, :name, :description, creator: current_user)
+      params.require(:challenge).permit(:start_date, :end_date, :name, :description, :invite_token, :is_solo, creator: current_user)
     end
 end
