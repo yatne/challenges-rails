@@ -22,7 +22,7 @@ class ChallengesController < ApplicationController
 
   # POST /challenges or /challenges.json
   def create
-    @challenge = Challenge.new
+    @challenge = Challenge.new(challenge_params)
     @challenge.creator = current_user
     @challenge.invite_token = SecureRandom.urlsafe_base64
 
