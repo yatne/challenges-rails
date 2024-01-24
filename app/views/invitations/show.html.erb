@@ -4,9 +4,6 @@
     <div class="p-2 mb-4">The invitation is no longer valid</div>
   <% else %>
     <div class="p-2 mb-4"> You have been invited by <%= @challenge.creator.email %> to join: <b><%= @challenge.name %></b></div>
-    <div class="font-bold text-red">
-      <%= params['token'] %>
-    </div>
   <% end %>
   <div class="flex justify-between flex-row w-3/4 items-baseline">
     <%= link_to "Accept", accept_token_path(token: params['token']), class: 'px-2 py-1 border-2 rounded-md bg-yellow-200 hover:bg-yellow-400 focus:bg-yellow-400 active:bg-yellow-100 border-yellow-400 hover:border-yellow-200 focus:border-yellow-200 cursor-pointer w-40' %>

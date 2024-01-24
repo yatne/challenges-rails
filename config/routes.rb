@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  root to: "main#index"
   devise_for :users
-  resources :mains
+
+  root to: "main#index"
   resources :challenges
 
   get '/invite/:token', to: 'invitations#show'
