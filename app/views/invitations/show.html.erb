@@ -1,7 +1,15 @@
-<div>
+<div class="w-full border-2 border-grey-200 rounded max-w-2xl self-center mt-20 p-8 bg-white flex-col items-center">
+  <h2 class="text-center text-bold mb-8 text-xl font-bold">Challenge Invitation</h2>
   <% if @challenge.nil? %>
-    Nie ma takiego czelendżu
+    <div class="p-2 mb-4">The invitation is no longer valid</div>
   <% else %>
-    <%= @challenge.name %>
+    <div class="p-2 mb-4"> You have been invited by <%= @challenge.creator.email %> to join: <b><%= @challenge.name %></b></div>
+    <div class="font-bold text-red">
+      <%= params['token'] %>
+    </div>
   <% end %>
+  <div class="flex justify-between flex-row w-3/4 items-baseline">
+    <%= link_to "Accept", accept_token_path(token: params['token']), class: 'px-2 py-1 border-2 rounded-md bg-yellow-200 hover:bg-yellow-400 focus:bg-yellow-400 active:bg-yellow-100 border-yellow-400 hover:border-yellow-200 focus:border-yellow-200 cursor-pointer w-40' %>
+    <%= link_to "Decline", root_path %>
+  </div>
 </div>

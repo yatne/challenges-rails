@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :challenges
 
   get '/invite/:token', to: 'invitations#show'
+  get '/invite/:token/accept', to: 'invitations#accept', as: 'accept_token'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

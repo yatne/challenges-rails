@@ -1,3 +1,5 @@
 DB_USER: 'postgres'
 DB_PASSWORD: 'JapaKonia(0'
 DB_HOST: 'localhost'
+
+APP_URL: 'localhost:3000'
