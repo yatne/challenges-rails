@@ -1,6 +1,11 @@
 class ChallengesController < ApplicationController
-  before_action :set_challenge, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
+  before_action :set_challenge, only: %i[ show edit update destroy ]
+  before_action :set_participant, only: %i[ show edit update destroy]
+
+  def set_participant
+    @is_participant = @challenge.all_participants.include?(current_user)
+  end
 
   # GET /challenges or /challenges.json
   def index
@@ -9,6 +14,11 @@ class ChallengesController < ApplicationController
 
   # GET /challenges/1 or /challenges/1.json
   def show
+    if @is_participant
+      @is_creator = @challenge.creator == current_user
+    else
+      redirect_to challenges_path
+    end
   end
 
   # GET /challenges/new
@@ -18,6 +28,9 @@ class ChallengesController < ApplicationController
 
   # GET /challenges/1/edit
   def edit
+    if @challenge.creator != current_user
+      redirect_to challenge_url(@challenge)
+    end
   end
 
   # POST /challenges or /challenges.json
@@ -40,19 +53,21 @@ class ChallengesController < ApplicationController
   # PATCH/PUT /challenges/1 or /challenges/1.json
   def update
     respond_to do |format|
-      if @challenge.update(challenge_params)
-        format.html { redirect_to challenge_url(@challenge), notice: "Challenge was successfully updated." }
-        format.json { render :show, status: :ok, location: @challenge }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @challenge.errors, status: :unprocessable_entity }
+      if current_user == @challenge.creator
+        if @challenge.update(challenge_params)
+          format.html { redirect_to challenge_url(@challenge), notice: "Challenge was successfully updated." }
+          format.json { render :show, status: :ok, location: @challenge }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @challenge.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
 
   # DELETE /challenges/1 or /challenges/1.json
   def destroy
-    @challenge.destroy!
+    @challenge.destroy! if current_user == @challenge.creator
 
     respond_to do |format|
       format.html { redirect_to challenges_url, notice: "Challenge was successfully destroyed." }

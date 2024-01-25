@@ -2,11 +2,21 @@
   <h2 class="text-center text-bold mb-8 text-xl font-bold">Challenge Invitation</h2>
   <% if @challenge.nil? %>
     <div class="p-2 mb-4">The invitation is no longer valid</div>
+  <% elsif @is_creator %>
+    <div class="p-2 mb-4">You are the creator of <b><%= @challenge.name %></b>. You already participate in it</div>
+    <div class="flex justify-center flex-row items-baseline">
+      <%= link_to "OK", root_path, class: 'px-2 text-center py-1 border-2 rounded-md bg-yellow-200 hover:bg-yellow-400 focus:bg-yellow-400 active:bg-yellow-100 border-yellow-400 hover:border-yellow-200 focus:border-yellow-200 cursor-pointer w-40' %>
+    </div>
+  <% elsif @is_participant %>
+    <div class="p-2 mb-4">You are already a participant of <b><%= @challenge.name %></b></div>
+    <div class="flex justify-center flex-row items-baseline">
+      <%= link_to "OK", root_path, class: 'px-2 text-center py-1 border-2 rounded-md bg-yellow-200 hover:bg-yellow-400 focus:bg-yellow-400 active:bg-yellow-100 border-yellow-400 hover:border-yellow-200 focus:border-yellow-200 cursor-pointer w-40' %>
+    </div>
   <% else %>
-    <div class="p-2 mb-4"> You have been invited by <%= @challenge.creator.email %> to join: <b><%= @challenge.name %></b></div>
+    <div class="p-2 mb-4">You have been invited by <%= @challenge.creator.email %> to join: <b><%= @challenge.name %></b></div>
+    <div class="flex justify-between flex-row w-3/4 items-baseline">
+      <%= link_to "Accept", accept_token_path(token: params['token']), class: 'px-2 py-1 border-2 rounded-md bg-yellow-200 hover:bg-yellow-400 focus:bg-yellow-400 active:bg-yellow-100 border-yellow-400 hover:border-yellow-200 focus:border-yellow-200 cursor-pointer w-40' %>
+      <%= link_to "Decline", root_path %>
+    </div>
   <% end %>
-  <div class="flex justify-between flex-row w-3/4 items-baseline">
-    <%= link_to "Accept", accept_token_path(token: params['token']), class: 'px-2 py-1 border-2 rounded-md bg-yellow-200 hover:bg-yellow-400 focus:bg-yellow-400 active:bg-yellow-100 border-yellow-400 hover:border-yellow-200 focus:border-yellow-200 cursor-pointer w-40' %>
-    <%= link_to "Decline", root_path %>
-  </div>
 </div>
