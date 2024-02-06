@@ -3,10 +3,6 @@ class ChallengesController < ApplicationController
   before_action :set_challenge, only: %i[ show edit update destroy ]
   before_action :set_participant, only: %i[ show edit update destroy]
 
-  def set_participant
-    @is_participant = @challenge.all_participants.include?(current_user)
-  end
-
   # GET /challenges or /challenges.json
   def index
     @challenges = Challenge.left_joins(:participants).where(creator: current_user).or(Challenge.left_joins(:participants).where(participants: {id: current_user}))
@@ -84,5 +80,9 @@ class ChallengesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def challenge_params
       params.require(:challenge).permit(:start_date, :end_date, :name, :description, :invite_token, :is_solo, creator: current_user)
+    end
+
+    def set_participant
+      @is_participant = @challenge.all_participants.include?(current_user)
     end
 end

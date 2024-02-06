@@ -4,10 +4,8 @@ one:
   first_name: MyString
   last_name: MyString
   user: one
-  avatar_url: MyString
 
 two:
   first_name: MyString
   last_name: MyString
   user: two
-  avatar_url: MyString

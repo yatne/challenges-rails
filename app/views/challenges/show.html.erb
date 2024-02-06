@@ -22,7 +22,7 @@
     <h2 class="text-bold text-xl font-bold mb-4">Participants:</h2>
     <ul>
       <% @challenge.all_participants.each do |participant| %>
-        <li class="mb-2"> <%= participant.email %></li>
+        <li class="mb-2"><%= participant.first_name %> <%= participant.last_name %></li>
       <% end %>
     </ul>
   </div>

@@ -1,0 +1,29 @@
+<div class="w-full border-2 border-grey-200 rounded max-w-2xl self-center mt-20 p-8 bg-white flex-col items-center">
+  <h2 class="text-center text-bold mb-8 text-xl font-bold">Edit profile</h2>
+
+  <%= form_with(model: @user.profile, html: {class: 'flex flex-col items-center'}) do |f| %>
+    <% if @user.profile.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(@user.profile.errors.count, "error") %> prohibited this challenge from being saved:</h2>
+        <ul>
+          <% @user.profile.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <% if @user.profile.avatar.attached? %>
+      <%= image_tag @user.profile.avatar %>
+    <% else %>
+      <div>nie ma</div>
+    <% end %>
+
+    <%= f.text_field :first_name, autocomplete: "first_name", placeholder: 'First name', class: 'block w-3/4 mb-2 px-2 py-1 border-2 rounded hover:border-yellow-200 focus:outline-yellow-200 focus:bg-yellow-50' %>
+    <%= f.text_field :last_name, autocomplete: "last_name", placeholder: 'Last name', class: 'block w-3/4 mb-2 px-2 py-1 border-2 rounded hover:border-yellow-200 focus:outline-yellow-200 focus:bg-yellow-50' %>
+
+    <%= f.file_field :avatar, autocomplete: "avatar", placeholder: 'Profile Pic.', class: 'block w-3/4 mb-8 px-2 py-1 border-2 rounded hover:border-yellow-200 focus:outline-yellow-200 focus:bg-yellow-50' %>
+
+    <%= f.submit "Update", class: 'px-2 py-1 border-2 rounded-md bg-yellow-200 hover:bg-yellow-400 focus:bg-yellow-400 active:bg-yellow-100 border-yellow-400 hover:border-yellow-200 focus:border-yellow-200 cursor-pointer w-40' %>
+  <% end %>
+</div>

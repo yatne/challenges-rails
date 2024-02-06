@@ -1,43 +1,30 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<p style="color: green"><%= notice %></p>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
+<% if @user.profile %>
+  <%= render "profile_edit" %>
+<% else %>
+  <%= render "/profiles/profile_new" %>
 <% end %>
 
-<h3>Cancel my account</h3>
+<div class="w-full border-2 border-grey-200 rounded max-w-2xl self-center mt-20 p-8 bg-white flex flex-col items-center">
+  <h2 class="text-center text-bold mb-8 text-xl font-bold"> Edit Access </h2>
 
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
+  <%= form_for(:user, as: resource_name, url: registration_path(resource_name), html: { method: :put }, class: 'w-full flex flex-col items-center') do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-<%= link_to "Back", :back %>
+    <%= f.email_field :email, autocomplete: "email", placeholder: 'Email', class: 'block w-3/4 mb-2 px-2 py-1 border-2 rounded hover:border-yellow-200 focus:outline-yellow-200 focus:bg-yellow-50' %>
+
+    <%= f.password_field :password, autocomplete: "new-password", placeholder: 'New password (Leave blank if you don\'t want to change it)', class: 'block w-3/4 mb-2 px-2 py-1 border-2 rounded hover:border-yellow-200 focus:outline-yellow-200 focus:bg-yellow-50' %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: 'Password Confirmation', class: 'block w-3/4 mb-8 px-2 py-1 border-2 rounded hover:border-yellow-200 focus:outline-yellow-200 focus:bg-yellow-50' %>
+    <%= f.password_field :current_password, autocomplete: "current-password", placeholder: 'Password (we need your current password to confirm your changes)', class: 'block w-3/4 mb-4 px-2 py-1 border-2 rounded hover:border-yellow-200 focus:outline-yellow-200 focus:bg-yellow-50' %>
+
+    <div class="actions">
+      <%= f.submit "Update", class: 'px-2 py-1 border-2 rounded-md bg-yellow-200 hover:bg-yellow-400 focus:bg-yellow-400 active:bg-yellow-100 border-yellow-400 hover:border-yellow-200 focus:border-yellow-200 cursor-pointer w-40' %>
+    </div>
+  <% end %>
+
+  <div class="flex flex-row items-end self-end mt-6 mr-4 items-center">
+    <span class="mr-2">Unhappy?</span>
+    <%= button_to "delete account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: 'px-2 py-1 border-2 rounded-md bg-red-200 hover:bg-red-400 focus:bg-red-400 active:bg-red-100 border-red-400 hover:border-red-200 focus:border-red-200 cursor-pointer' %>
+  </div>
+</div>
