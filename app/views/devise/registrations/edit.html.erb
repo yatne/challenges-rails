@@ -1,7 +1,7 @@
 <p style="color: green"><%= notice %></p>
 
 <% if @user.profile %>
-  <%= render "profile_edit" %>
+  <%= render "/profiles/profile_edit" %>
 <% else %>
   <%= render "/profiles/profile_new" %>
 <% end %>

@@ -22,7 +22,7 @@
     <%= f.text_field :first_name, autocomplete: "first_name", placeholder: 'First name', class: 'block w-3/4 mb-2 px-2 py-1 border-2 rounded hover:border-yellow-200 focus:outline-yellow-200 focus:bg-yellow-50' %>
     <%= f.text_field :last_name, autocomplete: "last_name", placeholder: 'Last name', class: 'block w-3/4 mb-2 px-2 py-1 border-2 rounded hover:border-yellow-200 focus:outline-yellow-200 focus:bg-yellow-50' %>
 
-    <%= f.file_field :avatar, autocomplete: "avatar", placeholder: 'Profile Pic.', class: 'block w-3/4 mb-8 px-2 py-1 border-2 rounded hover:border-yellow-200 focus:outline-yellow-200 focus:bg-yellow-50' %>
+    <%= f.file_field :avatar, autocomplete: "avatar", placeholder: 'Profile Pic.', accept: "image/*", class: 'block w-3/4 mb-8 px-2 py-1 border-2 rounded hover:border-yellow-200 focus:outline-yellow-200 focus:bg-yellow-50' %>
 
     <%= f.submit "Update", class: 'px-2 py-1 border-2 rounded-md bg-yellow-200 hover:bg-yellow-400 focus:bg-yellow-400 active:bg-yellow-100 border-yellow-400 hover:border-yellow-200 focus:border-yellow-200 cursor-pointer w-40' %>
   <% end %>

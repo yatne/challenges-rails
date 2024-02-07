@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "registrations" }
 
-  resources :profiles
+  resources :profiles, only: [:show, :new, :create, :update]
 
   root to: "main#index"
   resources :challenges

@@ -12,7 +12,9 @@ class ProfilesController < ApplicationController
   def create
     @profile = Profile.new(profile_params)
     @profile.user = current_user
-    @profile.avatar.attach(params[:avatar])
+    if params[:avatar]
+      @profile.avatar.attach(params[:avatar])
+    end
 
     respond_to do |format|
       if @profile.save
@@ -35,7 +37,7 @@ class ProfilesController < ApplicationController
         format.html { redirect_to edit_user_registration_path, notice: "Profile was successfully updated." }
         format.json { render :show, status: :ok, location: @profile }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { redirect_to edit_user_registration_path, status: :unprocessable_entity, notice: "Error uploading file." }
         format.json { render json: @profile.errors, status: :unprocessable_entity }
       end
     end
