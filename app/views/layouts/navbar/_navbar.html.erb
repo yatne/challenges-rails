@@ -7,10 +7,22 @@
 
       <%= link_to edit_user_registration_path do %>
         <div class="flex flex-row justify-center items-center mx-4">
-          <%= image_tag current_user.profile.avatar, class: "w-[40px] h-[40px] rounded-[20px] mr-2" %>
-          <div class="<%= 'font-bold' if current_page?(edit_user_registration_path) %>">
-            <%= current_user.profile.first_name %>
-          </div>
+          <% if current_user.profile.present? %>
+            <% if current_user.profile.avatar.present? %>
+              <%= image_tag current_user.profile.avatar, class: "w-[40px] h-[40px] rounded-[20px] mr-2" %>
+            <% else %>
+              <%= image_tag '/images/profile_pic_empty.webp', class: "w-[40px] h-[40px] rounded-[20px] mr-2" %>
+            <% end %>
+            <% if current_user.profile.first_name.present? %>
+              <div class="<%= 'font-bold' if current_page?(edit_user_registration_path) %>">
+                <%= current_user.profile.first_name %>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="font-bold">
+              Complete your profile
+            </div>
+          <% end %>
         </div>
       <% end %>|
       <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "mx-4"  %>
