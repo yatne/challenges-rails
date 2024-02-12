@@ -1,9 +1,26 @@
-<h1>Editing challenge</h1>
+<div class="w-full border-2 border-grey-200 rounded max-w-2xl self-center mt-20 p-8 bg-white flex-col items-center">
+  <h2 class="text-center text-bold mb-8 text-xl font-bold">Edit challenge</h2>
 
+  <%= form_for(@challenge, url: challenges_path, html: {class: 'flex flex-col items-center'}) do |f| %>
+    <% if @challenge.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(@challenge.errors.count, "error") %> prohibited this challenge from being saved:</h2>
+        <ul>
+          <% @challenge.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-<br>
+    <%= f.date_field :start_date, autocomplete: "start_date", placeholder: 'Start date', class: 'block w-3/4 mb-2 px-2 py-1 border-2 rounded hover:border-yellow-200 focus:outline-yellow-200 focus:bg-yellow-50' %>
+    <%= f.date_field :end_date, autocomplete: "end_date", placeholder: 'End date', class: 'block w-3/4 mb-2 px-2 py-1 border-2 rounded hover:border-yellow-200 focus:outline-yellow-200 focus:bg-yellow-50' %>
+    <%= f.text_field :name, autocomplete: "name", placeholder: 'Name', class: 'block w-3/4 mb-8 px-2 py-1 border-2 rounded hover:border-yellow-200 focus:outline-yellow-200 focus:bg-yellow-50' %>
+    <%= f.text_area :description, autocomplete: "description", placeholder: 'Description', class: 'block w-3/4 mb-8 px-2 py-1 border-2 rounded hover:border-yellow-200 focus:outline-yellow-200 focus:bg-yellow-50' %>
 
-<div>
-  <%= link_to "Show this challenge", @challenge %> |
-  <%= link_to "Back to challenges", challenges_path %>
+    <div class="flex justify-between flex-row w-3/4 items-baseline">
+      <%= f.submit "Create", class: 'px-2 py-1 border-2 rounded-md bg-yellow-200 hover:bg-yellow-400 focus:bg-yellow-400 active:bg-yellow-100 border-yellow-400 hover:border-yellow-200 focus:border-yellow-200 cursor-pointer w-40' %>
+      <%= link_to "Back", challenges_path %>
+    </div>
+  <% end %>
 </div>
