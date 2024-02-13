@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Entry types</h1>
+
+<div id="entry_types">
+  <% @entry_types.each do |entry_type| %>
+    <%= render entry_type %>
+    <p>
+      <%= link_to "Show this entry type", entry_type %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New entry type", new_entry_type_path %>

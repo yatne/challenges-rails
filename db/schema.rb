@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_06_085302) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_12_141630) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -66,6 +66,30 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_085302) do
     t.index ["invite_token"], name: "index_challenges_on_invite_token", unique: true
   end
 
+  create_table "entries", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "challenge_id", null: false
+    t.bigint "entry_type_id", null: false
+    t.float "value"
+    t.date "date"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_entries_on_challenge_id"
+    t.index ["entry_type_id"], name: "index_entries_on_entry_type_id"
+    t.index ["user_id"], name: "index_entries_on_user_id"
+  end
+
+  create_table "entry_types", force: :cascade do |t|
+    t.bigint "challenge_id", null: false
+    t.string "name"
+    t.string "units"
+    t.float "weight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_entry_types_on_challenge_id"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -92,5 +116,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_085302) do
   add_foreign_key "challenge_participations", "challenges"
   add_foreign_key "challenge_participations", "users"
   add_foreign_key "challenges", "users", column: "creator_id"
+  add_foreign_key "entries", "challenges"
+  add_foreign_key "entries", "entry_types"
+  add_foreign_key "entries", "users"
+  add_foreign_key "entry_types", "challenges"
   add_foreign_key "profiles", "users"
 end

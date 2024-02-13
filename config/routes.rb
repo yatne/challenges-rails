@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :entries
+  resources :entry_types
   devise_for :users, controllers: { registrations: "registrations" }
 
   resources :profiles, only: [:show, :new, :create, :update]

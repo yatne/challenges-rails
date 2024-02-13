@@ -3,6 +3,8 @@ class Challenge < ApplicationRecord
 
   has_many :challenge_participations, dependent: :destroy
   has_many :participants, class_name: "User", through: :challenge_participations, source: :user
+  has_many :entry_types, dependent: :destroy
+  has_many :entries, dependent: :destroy
 
   validates_uniqueness_of :invite_token
 

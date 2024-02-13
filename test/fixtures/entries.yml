@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  challenge: one
+  entry_type: one
+  value: 1.5
+  date: 2024-02-12
+  description: MyText
+
+two:
+  user: two
+  challenge: two
+  entry_type: two
+  value: 1.5
+  date: 2024-02-12
+  description: MyText
